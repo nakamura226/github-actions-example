@@ -5,11 +5,6 @@
   "description": "My Electron application description",
   "private": true,
   "main": ".webpack/main",
-  "release": {
-    "branches": [
-      "main"
-    ]
-  },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
