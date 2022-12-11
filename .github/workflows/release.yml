@@ -3,7 +3,7 @@ name: Desktop Release
 on:
   push:
     branches: [ main ]
-    paths: [ 'desktop/**' ]
+    # paths: [ 'desktop/**' ]
 
 defaults:
   run:
