@@ -9,6 +9,9 @@
           "label": "macOS"
         }
       ]
+    }],
+    ["@semantic-release/npm", {
+      "npmPublish": false
     }]
   ]
 }
