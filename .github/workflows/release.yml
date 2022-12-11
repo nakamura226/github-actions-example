@@ -1,25 +1,38 @@
-name: semantic-release
+name: Desktop Release
 
 on:
   push:
     branches: [ main ]
-    paths: [ 'desktop/*' ]
+    paths: [ 'desktop/**' ]
+
+defaults:
+  run:
+    working-directory: desktop
 
 jobs:
-  release_draft:
-    name: Release
-    runs-on: ubuntu-latest
+  macos:
+    name: MacOS Build
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: yarn
+      # - run: corepack enable
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
       - name: Install dependencies
         run: yarn --frozen-lockfile
       - name: Build
         run: yarn make
+      - name: Setup semantic-release
+        run: |
+          yarn install -g -D @semantic-release/commit-analyzer
+          yarn install -g -D @semantic-release/release-notes-generator
+          yarn install -g -D @semantic-release/github
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: yarn semantic-release
+        run: npx semantic-release
