@@ -3,6 +3,7 @@
   "productName": "desktop",
   "version": "1.0.0",
   "description": "My Electron application description",
+  "private": true,
   "main": ".webpack/main",
   "release": {
     "branches": [
