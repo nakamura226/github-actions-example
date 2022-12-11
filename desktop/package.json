@@ -1,6 +1,6 @@
 {
-  "name": "desktop",
-  "productName": "desktop",
+  "name": "example-desktop",
+  "productName": "Example",
   "version": "1.0.0",
   "description": "My Electron application description",
   "private": true,
