@@ -5,8 +5,8 @@
     ["@semantic-release/github", {
       "assets": [
         {
-          "path": "out/**/*.zip",
-          "label": "macOS"
+          "path": "desktop/out/**/*.zip",
+          "label": "macOS App"
         }
       ]
     }],
