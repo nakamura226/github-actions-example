@@ -5,10 +5,13 @@
     ["@semantic-release/github", {
       "assets": [
         {
-          "path": "desktop/out/**/*.zip",
+          "path": "out/**/*.zip",
           "label": "macOS App"
         }
       ]
+    }],
+    ["@semantic-release/git", {
+      "assets": ["out/**/*.zip"]
     }],
     ["@semantic-release/npm", {
       "npmPublish": false

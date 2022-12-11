@@ -31,6 +31,7 @@ jobs:
           yarn global add @semantic-release/commit-analyzer --dev
           yarn global add @semantic-release/release-notes-generator --dev
           yarn global add @semantic-release/github --dev
+          yarn global add @semantic-release/git --dev
           yarn global add @semantic-release/npm --dev
       - name: Release
         env:
