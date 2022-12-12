@@ -27,12 +27,7 @@ jobs:
       - name: Build
         run: yarn make
       - name: Setup semantic-release
-        run: |
-          yarn global add @semantic-release/commit-analyzer --dev
-          yarn global add @semantic-release/release-notes-generator --dev
-          yarn global add @semantic-release/github --dev
-          yarn global add @semantic-release/git --dev
-          yarn global add @semantic-release/npm --dev
+        run: yarn global add @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/github @semantic-release/git @semantic-release/npm --dev
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
