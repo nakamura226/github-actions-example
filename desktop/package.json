@@ -5,11 +5,17 @@
   "description": "My Electron application description",
   "private": true,
   "main": ".webpack/main",
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "tagformat": "releases/uploader-ui/v${version}"
+  },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish",
+    "release": "semantic-release",
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
@@ -25,6 +31,11 @@
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
     "@electron-forge/plugin-webpack": "^6.0.4",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.7",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",

@@ -19,16 +19,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-      # - run: corepack enable
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-      - name: Build
-        run: yarn make
-      - name: Setup semantic-release
-        run: yarn global add @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/github @semantic-release/git @semantic-release/npm --dev
-      - name: Release
-        env:
+      - name: Build & Release
+        run: yarn release
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
