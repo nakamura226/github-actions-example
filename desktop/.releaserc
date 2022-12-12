@@ -1,6 +1,6 @@
 {
   "branch": "main",
-  "tagformat": "releases/uploader-ui/v${version}",
+  "tagFormat": "releases/uploader-ui/v${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
