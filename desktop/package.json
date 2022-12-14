@@ -9,7 +9,7 @@
     "branches": [
       "main"
     ],
-    "tagformat": "releases/uploader-ui/v${version}"
+    "tagFormat": "releases/uploader-ui/v${version}"
   },
   "scripts": {
     "start": "electron-forge start",
