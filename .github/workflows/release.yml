@@ -21,7 +21,9 @@ jobs:
           node-version: '16'
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Build & Release
+      - name: Build
+        run: yarn make
+      - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn release
