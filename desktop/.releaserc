@@ -12,13 +12,12 @@
       "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
     }],
     ["@semantic-release/exec", {
-      "prepareCmd": "yarn package:mac && yarn package:win && yarn package:linux"
+      "prepareCmd": "yarn make && yarn package:win"
     }],
     ["@semantic-release/github", {
       "assets": [
         {
-          "path": "out/*-darwin-x64",
-          "name": "uploader-macos-${nextRelease.version}.zip",
+          "path": "out/make/zip/darwin/x64/*.zi",
           "label": "MacOS distribution"
         },
         {
