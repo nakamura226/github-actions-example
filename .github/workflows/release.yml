@@ -21,8 +21,6 @@ jobs:
           node-version: '16'
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Build
-        run: yarn make
       - name: Install semantic release dependencies
         run: yarn global add semantic-release
       - name: Release
