@@ -1,5 +1,5 @@
 {
-  "branch": "main",
+  "branches": ["master"],
   "tagFormat": "releases/uploader-ui/v${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
