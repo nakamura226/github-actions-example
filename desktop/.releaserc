@@ -24,11 +24,6 @@
           "path": "out/-win32-x64",
           "name": "uploader-windows-${nextRelease.version}.zip",
           "label": "Windows distribution"
-        },
-        {
-          "path": "out/*-linux-x64",
-          "name": "uploader-linux-${nextRelease.version}.zip",
-          "label": "Linux distribution"
         }
       ]
     }]
