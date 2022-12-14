@@ -23,6 +23,8 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Build
         run: yarn make
+      - name: Install semantic release dependencies
+        run: yarn global add semantic-release
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
