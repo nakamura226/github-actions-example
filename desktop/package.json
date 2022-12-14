@@ -15,7 +15,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "release": "semantic-release -e desktop",
+    "release": "semantic-release",
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
