@@ -9,7 +9,6 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "release": "semantic-release --debug",
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
