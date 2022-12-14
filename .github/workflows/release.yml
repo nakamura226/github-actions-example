@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
       - name: Install semantic release dependencies
-        run: yarn add semantic-release @semantic-release/exec --dev
+        run: yarn add --no-save --dev semantic-release @semantic-release/git @semantic-release/exec
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
