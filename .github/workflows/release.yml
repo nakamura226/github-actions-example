@@ -21,8 +21,6 @@ jobs:
           node-version: '16'
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Install semantic release dependencies
-        run: yarn global add semantic-release @semantic-release/git @semantic-release/exec --dev
       - name: Install wine64 for windows
         run: brew install --cask wine-stable
       - name: Release
