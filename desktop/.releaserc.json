@@ -4,6 +4,8 @@
   "plugins": [
     ["@semantic-release/commit-analyzer", {
       "releaseRules": [
+        {"type": "*", "release": false},
+        {"type": "*", "scope": "*", "release": false},
         {"scope": "desktop", "type": "fix", "release": "patch"},
         {"scope": "desktop", "type": "build", "release": "patch"},
         {"scope": "desktop", "type": "ci", "release": "patch"},
@@ -15,8 +17,6 @@
         {"scope": "desktop", "type": "feat", "release": "minor"},
         {"scope": "desktop", "type": "minor", "release": "minor"},
         {"scope": "desktop", "type": "major", "release": "major"},
-        {"scope": "", "release": false},
-        {"type": "", "release": false},
         {"type": "chore", "release": false}
       ]
     }],
