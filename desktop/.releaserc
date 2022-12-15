@@ -17,7 +17,7 @@
     ["@semantic-release/github", {
       "assets": [
         {
-          "path": "out/make/zip/darwin/x64/*.zi",
+          "path": "out/make/zip/darwin/x64/*.zip",
           "label": "MacOS distribution"
         },
         {
