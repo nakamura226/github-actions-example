@@ -23,6 +23,11 @@ jobs:
         run: npm install -g yarn
       - name: Install dependencies
         run: yarn --frozen-lockfile
+      - name: Install wine64 for windows
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt update
+          sudo apt install wine64 wine32
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
