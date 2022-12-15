@@ -40,7 +40,6 @@
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.0",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
-    "gitmojis": "^3.13.0",
     "node-loader": "^2.0.0",
     "semantic-release": "^19.0.5",
     "style-loader": "^3.0.0",
