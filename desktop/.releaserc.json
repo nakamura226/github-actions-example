@@ -5,7 +5,7 @@
     ["@semantic-release/commit-analyzer", {
       "releaseRules": [
         {"type": "*", "release": false},
-        {"type": "*", "scope": "*", "release": false},
+        {"scope": "*", "release": false},
         {"scope": "desktop", "type": "fix", "release": "patch"},
         {"scope": "desktop", "type": "build", "release": "patch"},
         {"scope": "desktop", "type": "ci", "release": "patch"},
