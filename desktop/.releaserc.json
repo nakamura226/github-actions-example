@@ -1,0 +1,47 @@
+{
+  "branches": ["main"],
+  "tagFormat": "releases/uploader-ui/v${version}",
+  "plugins": [
+    ["@semantic-release/commit-analyzer", {
+      "releaseRules": [
+        {"scope": "desktop", "type": "fix", "release": "patch"},
+        {"scope": "desktop", "type": "build", "release": "patch"},
+        {"scope": "desktop", "type": "ci", "release": "patch"},
+        {"scope": "desktop", "type": "docs", "release": "patch"},
+        {"scope": "desktop", "type": "style", "release": "patch"},
+        {"scope": "desktop", "type": "refactor", "release": "patch"},
+        {"scope": "desktop", "type": "perf", "release": "patch"},
+        {"scope": "desktop", "type": "test", "release": "patch"},
+        {"scope": "desktop", "type": "feat", "release": "minor"},
+        {"scope": "desktop", "type": "minor", "release": "minor"},
+        {"scope": "desktop", "type": "major", "release": "major"},
+        {"type": "chore", "release": false}
+      ]
+    }],
+    "@semantic-release/release-notes-generator",
+    ["@semantic-release/npm", {
+      "npmPublish": false
+    }],
+    ["@semantic-release/git", {
+      "assets": ["package.json"],
+      "message": "chore(desktop): release ${nextRelease.version}\n\n${nextRelease.notes}"
+    }],
+    ["@semantic-release/exec", {
+      "prepareCmd": "yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip"
+    }],
+    ["@semantic-release/github", {
+      "assets": [
+        {
+          "path": "out/*darwin-x64.zip",
+          "name": "uploader-macos-${nextRelease.version}.zip",
+          "label": "MacOS distribution"
+        },
+        {
+          "path": "out/*win32-x64.zip",
+          "name": "uploader-windows-${nextRelease.version}.zip",
+          "label": "Windows distribution"
+        }
+      ]
+    }]
+  ]
+}
