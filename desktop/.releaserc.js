@@ -4,7 +4,14 @@ module.exports = {
   branches: ["main"],
   tagFormat: "releases/uploader-ui/v${version}",
   plugins: [
-    "@semantic-release/commit-analyzer",
+    ["@semantic-release/commit-analyzer", {
+      releaseRules: gitmojis.reduce((acc, { semver, code }) => {
+        if (semver) {
+          acc.push({ type: code, scope: "ui", release: semver });
+        }
+        return acc;
+      }, []),
+    }],
     "@semantic-release/release-notes-generator",
     ["@semantic-release/npm", {
       npmPublish: false
