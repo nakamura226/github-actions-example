@@ -13,7 +13,7 @@ module.exports = {
     }],
     ["@semantic-release/git", {
       assets: ["package.json"],
-      message: "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      message: "chore(desktop): release ${nextRelease.version}\n\n${nextRelease.notes}"
     }],
     ["@semantic-release/exec", {
       prepareCmd: "yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip"
