@@ -25,9 +25,8 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Install wine64 for windows
         run: |
-          sudo dpkg --add-architecture i386
-          sudo apt update
-          sudo apt install wine64 wine32
+          sudo apt-get -y update
+          sudo apt-get -y install nsis wine64
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
