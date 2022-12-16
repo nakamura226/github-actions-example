@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    uses: underground/github-actions-example/.github/workflows/release.yaml@staging
+    uses: ./.github/workflows/release.yml
     secrets:
       group_id: ${{ secrets.STAGING_GROUP_ID }}
       api_origin: ${{ secrets.STAGING_API_ORIGIN }}
