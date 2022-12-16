@@ -46,14 +46,17 @@ jobs:
           sudo apt-get -y update
           sudo apt-get -y install wine64
         if: ${{ inputs.runs-on == 'ubuntu-latest' }}
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo "REACT_APP_GROUP_ID=${{ secrets.group_id }}" >> .env
+          echo "REACT_APP_API_ORIGIN='${{ secrets.api_origin }}'" >> .env
+          echo "REACT_APP_AUTH_REGION=${{ secrets.cognito_auth_region }}" >> .env
+          echo "REACT_APP_AUTH_USER_POOL_ID=${{ secrets.cognito_auth_user_pool_id }}" >> .env
+          echo "REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID=${{ secrets.cognito_auth_user_pool_web_client_id }}" >> .env
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REACT_APP_GROUP_ID: ${{ secrets.group_id }}
-          REACT_APP_API_ORIGIN: ${{ secrets.api_origin }}
-          REACT_APP_AUTH_REGION: ${{ secrets.cognito_auth_region }}
-          REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.cognito_auth_user_pool_id }}
-          REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.cognito_auth_user_pool_web_client_id }}
           WINDOWS_PFX_FILE: ${{ secrets.windows_pfx_file }}
           WINDOWS_PFX_PASSWORD: ${{ secrets.windows_pfx_password }}
         run: npx semantic-release --debug
