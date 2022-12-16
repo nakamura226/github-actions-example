@@ -6,7 +6,14 @@ import log from 'electron-log';
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
+log.info("----------------------------------")
 log.info("VERSION:", app.getVersion())
+log.info("REACT_APP_API_ORIGIN", process.env.REACT_APP_API_ORIGIN)
+log.info("REACT_APP_AUTH_REGION", process.env.REACT_APP_AUTH_REGION)
+log.info("REACT_APP_AUTH_USER_POOL_ID", process.env.REACT_APP_AUTH_USER_POOL_ID)
+log.info("REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID", process.env.REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID)
+log.info("REACT_APP_GROUP_ID", process.env.REACT_APP_GROUP_ID)
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
