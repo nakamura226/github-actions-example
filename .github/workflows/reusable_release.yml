@@ -4,6 +4,7 @@ on:
   workflow_call:
     inputs:
       runs-on:
+        required: true
         default: ubuntu-latest
       group_id:
         required: true
@@ -52,6 +53,7 @@ jobs:
           echo "REACT_APP_AUTH_REGION=${{ secrets.cognito_auth_region }}" >> .env
           echo "REACT_APP_AUTH_USER_POOL_ID=${{ secrets.cognito_auth_user_pool_id }}" >> .env
           echo "REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID=${{ secrets.cognito_auth_user_pool_web_client_id }}" >> .env
+      - run: cat .env
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
