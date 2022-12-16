@@ -2,6 +2,11 @@ name: Reusable Desktop Release Workflow
 
 on:
   workflow_call:
+    inputs:
+      runs-on:
+        description: Platform to execute on
+        type: string
+        default: ubuntu-latest
     secrets:
       group_id:
         required: true
@@ -25,7 +30,7 @@ defaults:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runs-on }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -40,6 +45,7 @@ jobs:
         run: |
           sudo apt-get -y update
           sudo apt-get -y install wine64
+        if: ${{ inputs.runs-on == 'ubuntu-latest' }}
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
