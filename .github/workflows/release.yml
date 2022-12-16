@@ -1,10 +1,6 @@
 name: Desktop Release Workflow
 
 on:
-  push:
-    branches: [ main ]
-    # paths: [ 'desktop/**' ]
-  workflow_dispatch:
   workflow_call:
     secrets:
       group_id:
