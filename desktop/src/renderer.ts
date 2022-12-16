@@ -29,3 +29,8 @@
 import './index.css';
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
+console.log("REACT_APP_API_ORIGIN", process.env.REACT_APP_API_ORIGIN)
+console.log("REACT_APP_AUTH_REGION", process.env.REACT_APP_AUTH_REGION)
+console.log("REACT_APP_AUTH_USER_POOL_ID", process.env.REACT_APP_AUTH_USER_POOL_ID)
+console.log("REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID", process.env.REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID)
+console.log("REACT_APP_GROUP_ID", process.env.REACT_APP_GROUP_ID)
