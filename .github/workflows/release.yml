@@ -1,10 +1,22 @@
-name: Desktop Release
+name: Desktop Release Workflow
 
 on:
   push:
     branches: [ main ]
     # paths: [ 'desktop/**' ]
   workflow_dispatch:
+  workflow_call:
+    secrets:
+      group_id:
+        required: true
+      api_origin:
+        required: true
+      cognito_auth_region:
+        required: true
+      cognito_auth_user_pool_id:
+        required: true
+      cognito_auth_user_pool_web_client_id:
+        required: true
 
 defaults:
   run:
@@ -31,4 +43,9 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REACT_APP_GROUP_ID: ${{ secrets.group_id }}
+          REACT_APP_API_ORIGIN: ${{ secrets.api_origin }}
+          REACT_APP_AUTH_REGION: ${{ secrets.cognito_auth_region }}
+          REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.cognito_auth_user_pool_id }}
+          REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.cognito_auth_user_pool_web_client_id }}
         run: npx semantic-release --debug

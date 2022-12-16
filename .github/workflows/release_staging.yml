@@ -1,0 +1,16 @@
+name: Desktop Release For Staging
+
+on:
+  push:
+    branches: [ main ]
+    # paths: [ 'desktop/**' ]
+
+jobs:
+  build:
+    uses: underground/github-actions-example/.github/workflows/release.yaml@staging
+    secrets:
+      group_id: ${{ secrets.STAGING_GROUP_ID }}
+      api_origin: ${{ secrets.STAGING_API_ORIGIN }}
+      cognito_auth_region: ${{ secrets.STAGING_COGNITO_AUTH_REGION }}
+      cognito_auth_user_pool_id: ${{ secrets.STAGING_COGNITO_AUTH_USER_POOL_ID }}
+      cognito_auth_user_pool_web_client_id: ${{ secrets.STAGING_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
