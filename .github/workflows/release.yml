@@ -10,6 +10,7 @@ jobs:
   stage:
     uses: ./.github/workflows/reusable_release.yml
     with:
+      environment: staging
       runs-on: ubuntu-latest
       group_id: '2'
       api_origin: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com

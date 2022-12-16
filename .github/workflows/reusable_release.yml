@@ -3,6 +3,10 @@ name: Reusable Desktop Release Workflow
 on:
   workflow_call:
     inputs:
+      environment:
+        type: string
+        required: true
+        default: staging
       runs-on:
         type: string
         required: true
@@ -57,5 +61,6 @@ jobs:
       - run: ls -la ../
       - name: Release
         env:
+          NODE_ENV: ${{ inputs.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release --debug

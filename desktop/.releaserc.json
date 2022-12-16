@@ -29,7 +29,7 @@
       "message": "chore(desktop): release ${nextRelease.version}\n\n${nextRelease.notes}"
     }],
     ["@semantic-release/exec", {
-      "prepareCmd": "yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip"
+      "prepareCmd": "echo $NODE_ENV && yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip"
     }],
     ["@semantic-release/github", {
       "assets": [
