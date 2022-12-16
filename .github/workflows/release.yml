@@ -5,11 +5,6 @@ on:
     branches: [ main ]
     # paths: [ 'desktop/**' ]
   workflow_dispatch:
-    inputs:
-      windows_pfx_file:
-        required: true
-      windows_pfx_password:
-        required: true
 
 jobs:
   staging:
@@ -22,8 +17,6 @@ jobs:
       cognito_auth_region: ${{ secrets.STAGING_COGNITO_AUTH_REGION }}
       cognito_auth_user_pool_id: ${{ secrets.STAGING_COGNITO_AUTH_USER_POOL_ID }}
       cognito_auth_user_pool_web_client_id: ${{ secrets.STAGING_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-      windows_pfx_file: ${{ inputs.windows_pfx_file }}
-      windows_pfx_password: ${{ inputs.windows_pfx_password }}
 
   # production:
   #   uses: ./.github/workflows/reusable_release.yml

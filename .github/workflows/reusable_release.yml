@@ -17,10 +17,6 @@ on:
         required: true
       cognito_auth_user_pool_web_client_id:
         required: true
-      windows_pfx_file:
-        required: true
-      windows_pfx_password:
-        required: true
 
 defaults:
   run:
@@ -57,6 +53,4 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WINDOWS_PFX_FILE: ${{ secrets.windows_pfx_file }}
-          WINDOWS_PFX_PASSWORD: ${{ secrets.windows_pfx_password }}
         run: npx semantic-release --debug
