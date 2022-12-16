@@ -53,6 +53,8 @@ jobs:
           echo "REACT_APP_AUTH_USER_POOL_ID=${{ secrets.cognito_auth_user_pool_id }}" >> .env
           echo "REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID=${{ secrets.cognito_auth_user_pool_web_client_id }}" >> .env
       - run: cat .env
+      - run: ls -la ./
+      - run: ls -la ../
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
