@@ -4,14 +4,12 @@ on:
   workflow_call:
     inputs:
       runs-on:
-        description: Platform to execute on
-        type: string
         default: ubuntu-latest
-    secrets:
       group_id:
         required: true
       api_origin:
         required: true
+    secrets:
       cognito_auth_region:
         required: true
       cognito_auth_user_pool_id:
@@ -49,8 +47,8 @@ jobs:
       - name: 'Create env file'
         run: |
           touch .env
-          echo "REACT_APP_GROUP_ID=${{ secrets.group_id }}" >> .env
-          echo "REACT_APP_API_ORIGIN='${{ secrets.api_origin }}'" >> .env
+          echo "REACT_APP_GROUP_ID=${{ inputs.group_id }}" >> .env
+          echo "REACT_APP_API_ORIGIN='${{ inputs.api_origin }}'" >> .env
           echo "REACT_APP_AUTH_REGION=${{ secrets.cognito_auth_region }}" >> .env
           echo "REACT_APP_AUTH_USER_POOL_ID=${{ secrets.cognito_auth_user_pool_id }}" >> .env
           echo "REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID=${{ secrets.cognito_auth_user_pool_web_client_id }}" >> .env

@@ -16,9 +16,9 @@ jobs:
     uses: ./.github/workflows/reusable_release.yml
     with:
       runs-on: ubuntu-latest
+      group_id: 2
+      api_origin: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
     secrets:
-      group_id: ${{ secrets.STAGING_GROUP_ID }}
-      api_origin: ${{ secrets.STAGING_API_ORIGIN }}
       cognito_auth_region: ${{ secrets.STAGING_COGNITO_AUTH_REGION }}
       cognito_auth_user_pool_id: ${{ secrets.STAGING_COGNITO_AUTH_USER_POOL_ID }}
       cognito_auth_user_pool_web_client_id: ${{ secrets.STAGING_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
