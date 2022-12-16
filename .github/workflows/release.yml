@@ -13,7 +13,10 @@ on:
 
 jobs:
   staging:
-    uses: ./.github/workflows/release.yml
+    uses: ./.github/workflows/reusable_release.yml
+    # uses: underground/github-actions-example/.github/workflows/release.yml@main
+    inputs:
+      runs-on: ubuntu-latest
     secrets:
       group_id: ${{ secrets.STAGING_GROUP_ID }}
       api_origin: ${{ secrets.STAGING_API_ORIGIN }}
@@ -24,7 +27,9 @@ jobs:
       windows_pfx_password: ${{ inputs.windows_pfx_password }}
 
   # production:
-  #   uses: ./.github/workflows/release.yml
+  #   uses: ./.github/workflows/reusable_release.yml
+  #   inputs:
+  #     runs-on: ubuntu-latest
   #   secrets:
   #     group_id: ${{ secrets.GROUP_ID }}
   #     api_origin: ${{ secrets.API_ORIGIN }}
