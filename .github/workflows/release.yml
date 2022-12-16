@@ -1,47 +1,35 @@
-name: Desktop Release Workflow
+name: Desktop Release
 
 on:
-  workflow_call:
-    secrets:
-      group_id:
+  push:
+    branches: [ main ]
+    # paths: [ 'desktop/**' ]
+  workflow_dispatch:
+    inputs:
+      windows_pfx_file:
         required: true
-      api_origin:
+      windows_pfx_password:
         required: true
-      cognito_auth_region:
-        required: true
-      cognito_auth_user_pool_id:
-        required: true
-      cognito_auth_user_pool_web_client_id:
-        required: true
-
-defaults:
-  run:
-    working-directory: desktop
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      - name: Install Yarn
-        run: npm install -g yarn
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-      - name: Install wine64 for windows
-        run: |
-          sudo apt-get -y update
-          sudo apt-get -y install wine64
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REACT_APP_GROUP_ID: ${{ secrets.group_id }}
-          REACT_APP_API_ORIGIN: ${{ secrets.api_origin }}
-          REACT_APP_AUTH_REGION: ${{ secrets.cognito_auth_region }}
-          REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.cognito_auth_user_pool_id }}
-          REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.cognito_auth_user_pool_web_client_id }}
-        run: npx semantic-release --debug
+  staging:
+    uses: .github/workflows/release.yml@staging
+    secrets:
+      group_id: ${{ secrets.STAGING_GROUP_ID }}
+      api_origin: ${{ secrets.STAGING_API_ORIGIN }}
+      cognito_auth_region: ${{ secrets.STAGING_COGNITO_AUTH_REGION }}
+      cognito_auth_user_pool_id: ${{ secrets.STAGING_COGNITO_AUTH_USER_POOL_ID }}
+      cognito_auth_user_pool_web_client_id: ${{ secrets.STAGING_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+      windows_pfx_file: ${{ inputs.windows_pfx_file }}
+      windows_pfx_password: ${{ inputs.windows_pfx_password }}
+
+  # production:
+  #   uses: .github/workflows/release.yml@production
+  #   secrets:
+  #     group_id: ${{ secrets.GROUP_ID }}
+  #     api_origin: ${{ secrets.API_ORIGIN }}
+  #     cognito_auth_region: ${{ secrets.COGNITO_AUTH_REGION }}
+  #     cognito_auth_user_pool_id: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
+  #     cognito_auth_user_pool_web_client_id: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+  #     windows_pfx_file: ${{ inputs.windows_pfx_file }}
+  #     windows_pfx_password: ${{ inputs.windows_pfx_password }}

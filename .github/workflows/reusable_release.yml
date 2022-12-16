@@ -1,0 +1,53 @@
+name: Reusable Desktop Release Workflow
+
+on:
+  workflow_call:
+    secrets:
+      group_id:
+        required: true
+      api_origin:
+        required: true
+      cognito_auth_region:
+        required: true
+      cognito_auth_user_pool_id:
+        required: true
+      cognito_auth_user_pool_web_client_id:
+        required: true
+      windows_pfx_file:
+        required: true
+      windows_pfx_password:
+        required: true
+
+defaults:
+  run:
+    working-directory: desktop
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install Yarn
+        run: npm install -g yarn
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Install wine64 for windows
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install wine64
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REACT_APP_GROUP_ID: ${{ secrets.group_id }}
+          REACT_APP_API_ORIGIN: ${{ secrets.api_origin }}
+          REACT_APP_AUTH_REGION: ${{ secrets.cognito_auth_region }}
+          REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.cognito_auth_user_pool_id }}
+          REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.cognito_auth_user_pool_web_client_id }}
+          WINDOWS_PFX_FILE: ${{ secrets.windows_pfx_file }}
+          WINDOWS_PFX_PASSWORD: ${{ secrets.windows_pfx_password }}
+        run: npx semantic-release --debug
