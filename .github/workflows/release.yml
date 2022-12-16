@@ -4,8 +4,6 @@ on:
   push:
     branches: [ main ]
     # paths: [ 'desktop/**' ]
-
-on:
   workflow_dispatch:
 
 defaults:
@@ -29,8 +27,8 @@ jobs:
       - name: Install wine64 for windows
         run: |
           sudo apt-get -y update
-          sudo apt-get -y install nsis wine64
+          sudo apt-get -y install wine64
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: github_pat_11AEDPXDA0SrVB4vvGlbzb_cdBaxXBKQRujqW5NN9ezdnR1UXWmQqPxoGw0YSirdGGYI3VBLXCAx8kuED
         run: npx semantic-release --debug
