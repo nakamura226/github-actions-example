@@ -29,8 +29,8 @@ defaults:
     working-directory: desktop
 
 jobs:
-  build:
-    name: Build
+  release:
+    name: Release
     runs-on: ${{ inputs.runs-on }}
     steps:
       - uses: actions/checkout@v3
