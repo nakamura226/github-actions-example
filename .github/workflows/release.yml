@@ -14,7 +14,6 @@ on:
 jobs:
   staging:
     uses: ./.github/workflows/reusable_release.yml
-    # uses: underground/github-actions-example/.github/workflows/release.yml@main
     with:
       runs-on: ubuntu-latest
     secrets:
