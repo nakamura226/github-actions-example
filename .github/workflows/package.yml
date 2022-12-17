@@ -1,4 +1,4 @@
-name: Desktop Release
+name: Desktop package
 
 on:
   push:
@@ -11,7 +11,7 @@ defaults:
     working-directory: desktop
 
 jobs:
-  release:
+  package:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -50,7 +50,7 @@ jobs:
         echo "REACT_APP_AUTH_USER_POOL_ID=${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}" >> .env.staging
         echo "REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID=${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}" >> .env.staging
 
-    - name: Package release
+    - name: Release packages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npx semantic-release --debug
