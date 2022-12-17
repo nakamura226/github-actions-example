@@ -14,6 +14,7 @@ jobs:
     - uses: ./.github/actions/setup
       with:
         runs-on: ubuntu-latest
+
     - name: Package for staging
       env:
         NODE_ENV: staging
@@ -23,6 +24,7 @@ jobs:
         COGNITO_AUTH_USER_POOL_ID: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
         COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
       run: yarn package:mac && yarn package:mac:zip & yarn package:win && yarn package:win:zip
+
     - name: Package for production
       env:
         NODE_ENV: production
