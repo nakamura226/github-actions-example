@@ -10,7 +10,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-    - uses: ./.github/workflows/package.yml
+    - uses: ./.github/workflows/setup.yml
       with:
         runs-on: ubuntu-latest
     - name: Package for staging
