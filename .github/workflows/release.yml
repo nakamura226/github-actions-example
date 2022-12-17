@@ -9,7 +9,7 @@ on:
 jobs:
   package_staging:
     steps:
-      - uses: ./.github/workflows/reusable_release.yml
+      - uses: ./.github/workflows/package.yml
         with:
           runs-on: ubuntu-latest
         secrets:
@@ -21,7 +21,7 @@ jobs:
 
   package_production:
     steps:
-      - uses: ./.github/workflows/reusable_release.yml
+      - uses: ./.github/workflows/package.yml
         with:
           runs-on: ubuntu-latest
         secrets:
