@@ -7,14 +7,33 @@ on:
   workflow_dispatch:
 
 jobs:
-  stage:
-    uses: ./.github/workflows/reusable_release.yml
-    with:
-      environment: staging
-      runs-on: ubuntu-latest
-      group_id: '2'
-      api_origin: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
-    secrets:
-      cognito_auth_region: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
-      cognito_auth_user_pool_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
-      cognito_auth_user_pool_web_client_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+  package_staging:
+    steps:
+      - uses: ./.github/workflows/reusable_release.yml
+        with:
+          runs-on: ubuntu-latest
+        secrets:
+          cognito_auth_region: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
+          cognito_auth_user_pool_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
+          cognito_auth_user_pool_web_client_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+        env:
+          NODE_ENV: staging
+
+  package_production:
+    steps:
+      - uses: ./.github/workflows/reusable_release.yml
+        with:
+          runs-on: ubuntu-latest
+        secrets:
+          cognito_auth_region: ${{ secrets.COGNITO_AUTH_REGION }}
+          cognito_auth_user_pool_id: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
+          cognito_auth_user_pool_web_client_id: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+        env:
+          NODE_ENV: production
+
+  release:
+    steps:
+      - name: Package Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release --debug

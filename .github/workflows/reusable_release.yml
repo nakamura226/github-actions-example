@@ -1,12 +1,8 @@
-name: Reusable Desktop Release Workflow
+name: Reusable Desktop Package Workflow
 
 on:
   workflow_call:
     inputs:
-      environment:
-        type: string
-        required: true
-        default: staging
       runs-on:
         type: string
         required: true
@@ -30,8 +26,8 @@ defaults:
     working-directory: desktop
 
 jobs:
-  release:
-    name: Release
+  package:
+    name: Package
     runs-on: ${{ inputs.runs-on }}
     steps:
       - uses: actions/checkout@v3
@@ -48,19 +44,7 @@ jobs:
           sudo apt-get -y update
           sudo apt-get -y install wine64
         if: ${{ inputs.runs-on == 'ubuntu-latest' }}
-      - name: 'Create env file'
-        run: |
-          touch .env
-          echo "REACT_APP_GROUP_ID=${{ inputs.group_id }}" >> .env
-          echo "REACT_APP_API_ORIGIN='${{ inputs.api_origin }}'" >> .env
-          echo "REACT_APP_AUTH_REGION=${{ secrets.cognito_auth_region }}" >> .env
-          echo "REACT_APP_AUTH_USER_POOL_ID=${{ secrets.cognito_auth_user_pool_id }}" >> .env
-          echo "REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID=${{ secrets.cognito_auth_user_pool_web_client_id }}" >> .env
-      - run: cat .env
-      - run: ls -la ./
-      - run: ls -la ../
-      - name: Release
-        env:
-          NODE_ENV: ${{ inputs.environment }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release --debug
+      - name: Package for MacOS
+        run: yarn package:mac && yarn package:mac:zip
+      - name: Package for Windows
+        run: yarn package:win && yarn package:win:zip
