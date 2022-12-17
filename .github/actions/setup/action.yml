@@ -9,10 +9,8 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: true
     - name: Install wine64 for windows
+      shell: bash
       run: |
         sudo apt-get -y update
         sudo apt-get -y install wine64
