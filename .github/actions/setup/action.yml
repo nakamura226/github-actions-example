@@ -6,14 +6,13 @@ inputs:
     required: true
     default: ubuntu-latest
 
-defaults:
-  run:
-    working-directory: desktop
-
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
+    - name: Checkout all commits
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
     - name: Install wine64 for windows
       run: |
         sudo apt-get -y update
