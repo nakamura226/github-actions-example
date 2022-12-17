@@ -1,4 +1,4 @@
-name: Package setup action
+name: setup
 
 inputs:
   runs-on:
