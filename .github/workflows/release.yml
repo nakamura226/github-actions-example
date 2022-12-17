@@ -8,30 +8,29 @@ on:
 
 jobs:
   package_staging:
-    steps:
-      - uses: ./.github/workflows/package.yml
-        with:
-          runs-on: ubuntu-latest
-        secrets:
-          cognito_auth_region: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
-          cognito_auth_user_pool_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
-          cognito_auth_user_pool_web_client_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-        env:
-          NODE_ENV: staging
+    uses: ./.github/workflows/package.yml
+    with:
+      runs-on: ubuntu-latest
+    secrets:
+      cognito_auth_region: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
+      cognito_auth_user_pool_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
+      cognito_auth_user_pool_web_client_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+    env:
+      NODE_ENV: staging
 
   package_production:
-    steps:
-      - uses: ./.github/workflows/package.yml
-        with:
-          runs-on: ubuntu-latest
-        secrets:
-          cognito_auth_region: ${{ secrets.COGNITO_AUTH_REGION }}
-          cognito_auth_user_pool_id: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
-          cognito_auth_user_pool_web_client_id: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-        env:
-          NODE_ENV: production
+    uses: ./.github/workflows/package.yml
+    with:
+      runs-on: ubuntu-latest
+    secrets:
+      cognito_auth_region: ${{ secrets.COGNITO_AUTH_REGION }}
+      cognito_auth_user_pool_id: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
+      cognito_auth_user_pool_web_client_id: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+    env:
+      NODE_ENV: production
 
   release:
+    runs-on: ubuntu-latest
     steps:
       - name: Package Release
         env:
