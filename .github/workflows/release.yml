@@ -12,6 +12,8 @@ jobs:
     with:
       environment: staging
       runs-on: ubuntu-latest
+      group_id: '2'
+      api_origin: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
     secrets:
       cognito_auth_region: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
       cognito_auth_user_pool_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
@@ -22,6 +24,8 @@ jobs:
     with:
       environment: production
       runs-on: ubuntu-latest
+      group_id: '2'
+      api_origin: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
     secrets:
       cognito_auth_region: ${{ secrets.COGNITO_AUTH_REGION }}
       cognito_auth_user_pool_id: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
