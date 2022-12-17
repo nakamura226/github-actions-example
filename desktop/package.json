@@ -14,8 +14,8 @@
     "package:win:zip": "zip -r out/$npm_package_productName-win32-x64-$NODE_ENV.zip out/$npm_package_productName-win32-x64",
     "package:linux": "electron-forge package --platform=linux --arch=x64",
     "package:linux:zip": "zip -r out/$npm_package_productName-linux-x64-$NODE_ENV.zip out/$npm_package_productName-linux-x64",
-    "package:all:prod": "dotenv -e .env.production && yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip",
-    "package:all:stage": "dotenv -e .env.staging && yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip",
+    "package:all:prod": "dotenv -e ./.env.production yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip",
+    "package:all:stage": "dotenv -e ./.env.staging yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip",
     "make": "electron-forge make",
     "lint": "eslint --ext .ts,.tsx ."
   },
