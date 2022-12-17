@@ -8,11 +8,11 @@ export const plugins = [
   new ForkTsCheckerWebpackPlugin({
     logger: 'webpack-infrastructure',
   }),
-  new EnvironmentPlugin({
+  new EnvironmentPlugin([
     "REACT_APP_API_ORIGIN",
     "REACT_APP_AUTH_REGION",
     "REACT_APP_AUTH_USER_POOL_ID",
     "REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID",
     "REACT_APP_GROUP_ID",
-  }),
+  ]),
 ];
