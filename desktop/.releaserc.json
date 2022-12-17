@@ -29,19 +29,29 @@
       "message": "chore(desktop): release ${nextRelease.version}\n\n${nextRelease.notes}"
     }],
     ["@semantic-release/exec", {
-      "prepareCmd": "yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip"
+      "prepareCmd": "yarn package:all:prod && yarn package:all:stage"
     }],
     ["@semantic-release/github", {
       "assets": [
         {
-          "path": "out/*-darwin-x64.zip",
-          "name": "uploader-macos-${nextRelease.version}.zip",
-          "label": "MacOS distribution"
+          "path": "out/*-darwin-x64-staging.zip",
+          "name": "uploader-macos-${nextRelease.version}-staging.zip",
+          "label": "MacOS distribution (staging)"
         },
         {
-          "path": "out/*-win32-x64.zip",
-          "name": "uploader-windows-${nextRelease.version}.zip",
-          "label": "Windows distribution"
+          "path": "out/*-win32-x64-staging.zip",
+          "name": "uploader-windows-${nextRelease.version}-staging.zip",
+          "label": "Windows distribution (staging)"
+        },
+        {
+          "path": "out/*-darwin-x64-production.zip",
+          "name": "uploader-macos-${nextRelease.version}-production.zip",
+          "label": "MacOS distribution (production)"
+        },
+        {
+          "path": "out/*-win32-x64-production.zip",
+          "name": "uploader-windows-${nextRelease.version}-production.zip",
+          "label": "Windows distribution (production)"
         }
       ]
     }]
