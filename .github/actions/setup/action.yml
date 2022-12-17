@@ -12,7 +12,6 @@ defaults:
 
 runs:
   using: composite
-  runs-on: ${{ inputs.runs-on }}
   steps:
     - name: Install wine64 for windows
       run: |
