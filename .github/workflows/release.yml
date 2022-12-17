@@ -32,26 +32,22 @@ jobs:
     - name: Install dependencies
       run: yarn --frozen-lockfile
 
-    - name: Package for staging
+    - name: Package release for staging
       env:
-        NODE_ENV: staging
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REACT_APP_API_ORIGIN: '2'
         REACT_APP_AUTH_REGION: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
         REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
         REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
         REACT_APP_GROUP_ID: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-      run: yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip
+      run: npx semantic-release --debug --tag-format='releases/uploader-ui/v${version}-staging'
 
-    - name: Package for production
+    - name: Package release for production
       env:
-        NODE_ENV: production
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REACT_APP_API_ORIGIN: '2'
         REACT_APP_AUTH_REGION: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
         REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_REGION }}
         REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
         REACT_APP_GROUP_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-      run: yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip
-    - name: Package Release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npx semantic-release --debug
+      run: npx semantic-release --debug --tag-format='releases/uploader-ui/v${version}'
