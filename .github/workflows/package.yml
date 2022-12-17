@@ -37,6 +37,11 @@ jobs:
       NODE_ENV: ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v3
+      - name: Install wine64 for windows
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install wine64
+        if: ${{ inputs.runs-on == 'ubuntu-latest' }}
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -45,11 +50,6 @@ jobs:
         run: npm install -g yarn
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Install wine64 for windows
-        run: |
-          sudo apt-get -y update
-          sudo apt-get -y install wine64
-        if: ${{ inputs.runs-on == 'ubuntu-latest' }}
       - name: Package for MacOS
         run: yarn package:mac && yarn package:mac:zip
       - name: Package for Windows
