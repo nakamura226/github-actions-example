@@ -40,7 +40,7 @@ jobs:
         REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
         REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
         REACT_APP_GROUP_ID: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-      run: yarn package:mac && yarn package:mac:zip & yarn package:win && yarn package:win:zip
+      run: yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip
 
     - name: Package for production
       env:
@@ -50,7 +50,7 @@ jobs:
         REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_REGION }}
         REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
         REACT_APP_GROUP_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-      run: yarn package:mac && yarn package:mac:zip & yarn package:win && yarn package:win:zip
+      run: yarn package:mac && yarn package:mac:zip && yarn package:win && yarn package:win:zip
     - name: Package Release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
