@@ -35,7 +35,6 @@ jobs:
     - name: Create env file for production
       run: |
         touch .env.production
-        echo "NODE_ENV=production" >> .env.production
         echo "REACT_APP_GROUP_ID=2" >> .env.production
         echo "REACT_APP_API_ORIGIN='http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com'" >> .env.production
         echo "REACT_APP_AUTH_REGION=${{ secrets.COGNITO_AUTH_REGION }}" >> .env.production
@@ -45,7 +44,6 @@ jobs:
     - name: Create env file for staging
       run: |
         touch .env.staging
-        echo "NODE_ENV=staging" >> .env
         echo "REACT_APP_GROUP_ID=2" >> .env.staging
         echo "REACT_APP_API_ORIGIN='http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com'" >> .env.staging
         echo "REACT_APP_AUTH_REGION=${{ secrets.STAGE_COGNITO_AUTH_REGION }}" >> .env.staging
