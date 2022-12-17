@@ -7,36 +7,31 @@ on:
   workflow_dispatch:
 
 jobs:
-  package_staging:
-    uses: ./.github/workflows/package.yml
-    with:
-      environment: staging
-      runs-on: ubuntu-latest
-      group_id: '2'
-      api_origin: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
-    secrets:
-      cognito_auth_region: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
-      cognito_auth_user_pool_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
-      cognito_auth_user_pool_web_client_id: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-
-  package_production:
-    uses: ./.github/workflows/package.yml
-    needs: package_staging
-    with:
-      environment: production
-      runs-on: ubuntu-latest
-      group_id: '2'
-      api_origin: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
-    secrets:
-      cognito_auth_region: ${{ secrets.COGNITO_AUTH_REGION }}
-      cognito_auth_user_pool_id: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
-      cognito_auth_user_pool_web_client_id: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-
   release:
     runs-on: ubuntu-latest
-    needs: package_production
     steps:
-      - name: Package Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release --debug
+    - uses: ./.github/workflows/package.yml
+      with:
+        runs-on: ubuntu-latest
+    - name: Package for staging
+      env:
+        NODE_ENV: staging
+        GROUP_ID: '2'
+        API_ORIGIN: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
+        COGNITO_AUTH_REGION: ${{ secrets.STAGE_COGNITO_AUTH_REGION }}
+        COGNITO_AUTH_USER_POOL_ID: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_ID }}
+        COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.STAGE_COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+      run: yarn package:mac && yarn package:mac:zip & yarn package:win && yarn package:win:zip
+    - name: Package for production
+      env:
+        NODE_ENV: production
+        GROUP_ID: '2'
+        API_ORIGIN: http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com
+        COGNITO_AUTH_REGION: ${{ secrets.COGNITO_AUTH_REGION }}
+        COGNITO_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
+        COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+      run: yarn package:mac && yarn package:mac:zip & yarn package:win && yarn package:win:zip
+    - name: Package Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npx semantic-release --debug

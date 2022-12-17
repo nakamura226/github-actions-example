@@ -3,38 +3,19 @@ name: Reusable Desktop Package Workflow
 on:
   workflow_call:
     inputs:
-      environment:
-        type: string
-        required: true
-        default: production
       runs-on:
         type: string
         required: true
         default: ubuntu-latest
-      group_id:
-        type: string
-        required: true
-      api_origin:
-        type: string
-        required: true
-    secrets:
-      cognito_auth_region:
-        required: true
-      cognito_auth_user_pool_id:
-        required: true
-      cognito_auth_user_pool_web_client_id:
-        required: true
 
 defaults:
   run:
     working-directory: desktop
 
 jobs:
-  package:
-    name: Package
+  setup:
+    name: Setup
     runs-on: ${{ inputs.runs-on }}
-    env:
-      NODE_ENV: ${{ inputs.environment }}
     steps:
       - uses: actions/checkout@v3
       - name: Install wine64 for windows
@@ -50,7 +31,3 @@ jobs:
         run: npm install -g yarn
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Package for MacOS
-        run: yarn package:mac && yarn package:mac:zip
-      - name: Package for Windows
-        run: yarn package:win && yarn package:win:zip
