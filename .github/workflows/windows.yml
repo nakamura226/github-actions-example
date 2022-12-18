@@ -1,0 +1,24 @@
+name: Desktop make
+
+on:
+  workflow_dispatch:
+    inputs:
+      windows_pfx_file:
+        required: true
+      windows_pfx_password:
+        required: true
+
+defaults:
+  run:
+    working-directory: desktop
+
+jobs:
+  make:
+    runs-on: windows-latest
+    steps:
+     - name: GitHub Tag Name example
+       run: |
+         echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+         echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+         echo "windows_pfx_file: ${{  inputs.windows_pfx_file }}"
+         echo "windows_pfx_password: ${{  inputs.windows_pfx_password }}"
