@@ -1,9 +1,9 @@
 name: Desktop package
 
 on:
-  push:
-    branches: [ main ]
-    # paths: [ 'desktop/**' ]
+  # push:
+  #   branches: [ main ]
+  #   # paths: [ 'desktop/**' ]
   workflow_dispatch:
 
 defaults:
