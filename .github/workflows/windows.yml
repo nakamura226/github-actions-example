@@ -52,4 +52,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/releases/uploader-ui/')
         with:
           files: |
-            desktop/out/**/*.zip
+            desktop/out/make/squirrel.windows/x64/*.exe
