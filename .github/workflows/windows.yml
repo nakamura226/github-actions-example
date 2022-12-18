@@ -20,9 +20,9 @@ jobs:
         run: |
           git clone git@github.com:${{ github.repository }}.git C:/github-actions-example
           git checkout ${{ github.ref_name }}
-          ls -la
+          ls
           cd desktop
-          ls -la
+          ls
 
       # - name: Use Node.js
       #   working-directory: C:/github-actions-example
