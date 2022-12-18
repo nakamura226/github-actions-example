@@ -29,6 +29,13 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      - name: Add Windows certificate
+        id: write_file
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: 'certificate.pfx'
+          encodedString: ${{ inputs.windows_pfx_file }}
+
       - name: Build
         env:
           REACT_APP_GROUP_ID: 2
@@ -36,7 +43,7 @@ jobs:
           REACT_APP_AUTH_REGION: ${{ secrets.COGNITO_AUTH_REGION }}
           REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
           REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-          WINDOWS_PFX_FILE: ${{ inputs.windows_pfx_file }}
+          WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ inputs.windows_pfx_password }}
         run: yarn make:win
 
@@ -44,4 +51,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/releases/uploader-ui/')
         with:
-          files: out/make/zip/win32/x64/*.zip
+          files: out/**/*.zip
