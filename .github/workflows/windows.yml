@@ -46,11 +46,11 @@ jobs:
           WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
           WINDOWS_PFX_PASSWORD: ${{ inputs.windows_pfx_password }}
         run: yarn make:win
-      - run: npm install -g tree-cli
-      - run: tree -l 8
 
-      - name: Create release
+      - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/releases/uploader-ui/')
         with:
-          files: out/make/**/*
+          files: |
+            out/make/zip/win32/x64/*.zip
+            out/make/squirrel.windows/x64/*.exe
