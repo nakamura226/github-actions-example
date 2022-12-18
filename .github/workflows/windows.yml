@@ -10,41 +10,34 @@ on:
       windows_pfx_password:
         required: true
 
+defaults:
+  run:
+    working-directory: desktop
+
 jobs:
   make:
     runs-on: windows-latest
     steps:
-      - name: Checkout
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git clone git@github.com:${{ github.repository }}.git C:/github-actions-example
-          git checkout ${{ github.ref_name }}
-          ls
-          cd desktop
-          ls
-
-      # - name: Use Node.js
-      #   working-directory: C:/github-actions-example
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: '16'
-
-      # - name: Install Yarn
-      #   working-directory: C:/github-actions-example
-      #   run: npm install -g yarn
-
-      # - name: Install dependencies
-      #   working-directory: C:/github-actions-example
-      #   run: yarn --frozen-lockfile
-
-      # - name: Build
-      #   env:
-      #     REACT_APP_GROUP_ID: 2
-      #     REACT_APP_API_ORIGIN: 'http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com'
-      #     REACT_APP_AUTH_REGION: ${{ secrets.COGNITO_AUTH_REGION }}
-      #     REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
-      #     REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-      #     WINDOWS_PFX_FILE: ${{ inputs.windows_pfx_file }}
-      #     WINDOWS_PFX_PASSWORD: ${{ inputs.windows_pfx_password }}
-      #   run: yarn make:win
+          REACT_APP_GROUP_ID: 2
+          REACT_APP_API_ORIGIN: 'http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com'
+          REACT_APP_AUTH_REGION: ${{ secrets.COGNITO_AUTH_REGION }}
+          REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
+          REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+          WINDOWS_PFX_FILE: ${{ inputs.windows_pfx_file }}
+          WINDOWS_PFX_PASSWORD: ${{ inputs.windows_pfx_password }}
+        run: yarn make:win
