@@ -23,3 +23,11 @@ jobs:
           echo "Tag name from github.ref_name: ${{  github.ref_name }}"
           echo "windows_pfx_file: ${{  inputs.windows_pfx_file }}"
           echo "windows_pfx_password: ${{  inputs.windows_pfx_password }}"
+
+      - name: Get package version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@main
+
+      - name: Create release uploader v${{ steps.package-version.outputs.current-version }}
+        run: |
+          echo "package version: ${{ steps.package-version.outputs.current-version }}"
