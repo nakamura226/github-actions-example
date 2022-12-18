@@ -16,9 +16,10 @@ jobs:
   make:
     runs-on: ubuntu-latest
     steps:
-     - name: GitHub Tag Name example
-       run: |
-         echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
-         echo "Tag name from github.ref_name: ${{  github.ref_name }}"
-         echo "windows_pfx_file: ${{  inputs.windows_pfx_file }}"
-         echo "windows_pfx_password: ${{  inputs.windows_pfx_password }}"
+      - uses: actions/checkout@v3
+      - name: GitHub Tag Name example
+        run: |
+          echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+          echo "windows_pfx_file: ${{  inputs.windows_pfx_file }}"
+          echo "windows_pfx_password: ${{  inputs.windows_pfx_password }}"
