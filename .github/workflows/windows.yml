@@ -14,7 +14,7 @@ defaults:
 
 jobs:
   make:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
      - name: GitHub Tag Name example
        run: |
