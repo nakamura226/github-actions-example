@@ -10,10 +10,6 @@ on:
       windows_pfx_password:
         required: true
 
-defaults:
-  run:
-    working-directory: desktop
-
 jobs:
   make:
     runs-on: windows-latest
