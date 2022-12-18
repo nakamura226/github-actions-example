@@ -41,3 +41,8 @@ jobs:
           WINDOWS_PFX_FILE: ${{ inputs.windows_pfx_file }}
           WINDOWS_PFX_PASSWORD: ${{ inputs.windows_pfx_password }}
         run: yarn make:win
+
+    - name: Create release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: out/make/zip/win32/x64/*.zip

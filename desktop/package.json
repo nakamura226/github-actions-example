@@ -20,6 +20,7 @@
     "make:win": "electron-forge make --platform=win32 --arch=x64",
     "make:mac": "electron-forge make --platform=darwin --arch=x64",
     "make:linux": "electron-forge make --platform=linux --arch=x64",
+    "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
