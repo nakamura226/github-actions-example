@@ -2,7 +2,7 @@ name: Desktop make
 
 on:
   workflow_dispatch:
-    inputs:
+    secrets:
       windows_pfx_file:
         required: true
       windows_pfx_password:
@@ -17,17 +17,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: GitHub Tag Name example
-        run: |
-          echo "Ref from github.ref: ${{  github.ref }}"
-          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
-          echo "windows_pfx_file: ${{  inputs.windows_pfx_file }}"
-          echo "windows_pfx_password: ${{  inputs.windows_pfx_password }}"
 
-      - name: Get package version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@main
-
-      - name: Create release uploader v${{ steps.package-version.outputs.current-version }}
+      - name: Install wine64 for windows
         run: |
-          echo "package version: ${{ steps.package-version.outputs.current-version }}"
+          sudo apt-get -y update
+          sudo apt-get -y install wine64
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - uses: actions/checkout@v3
+
+      - name: Build
+        env:
+          REACT_APP_GROUP_ID: 2
+          REACT_APP_API_ORIGIN: 'http://ias1-staging1-srvus-pub-alb-1167594217.ap-northeast-1.elb.amazonaws.com'
+          REACT_APP_AUTH_REGION: ${{ secrets.COGNITO_AUTH_REGION }}
+          REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
+          REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
+          WINDOWS_PFX_FILE: ${{ inputs.windows_pfx_file }}
+          WINDOWS_PFX_PASSWORD: ${{ inputs.windows_pfx_password }}
+        run: yarn make:win
