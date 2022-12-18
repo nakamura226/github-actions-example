@@ -2,7 +2,7 @@ name: Desktop make
 
 on:
   workflow_dispatch:
-    secrets:
+    inputs:
       windows_pfx_file:
         required: true
       windows_pfx_password:
