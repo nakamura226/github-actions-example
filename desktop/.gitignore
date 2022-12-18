@@ -87,3 +87,9 @@ typings/
 
 # Electron-Forge
 out/
+certificate.base64
+certificate.pem
+certificate.pfx
+csr.csr
+key.pem
+
