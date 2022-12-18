@@ -17,6 +17,9 @@
     "package:all:prod": "dotenv -e .env.production yarn package:mac && NODE_ENV=production yarn package:mac:zip && dotenv -e .env.production yarn package:win && NODE_ENV=production yarn package:win:zip",
     "package:all:stage": "dotenv -e .env.staging yarn package:mac && NODE_ENV=staging yarn package:mac:zip && dotenv -e .env.staging yarn package:win && NODE_ENV=staging yarn package:win:zip",
     "make": "electron-forge make",
+    "make:win": "electron-forge make --platform=win32 --arch=x64",
+    "make:mac": "electron-forge make --platform=darwin --arch=x64",
+    "make:linux": "electron-forge make --platform=linux --arch=x64",
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
