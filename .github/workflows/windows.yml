@@ -1,4 +1,4 @@
-name: Desktop make
+name: Release Windows Installer
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ defaults:
     working-directory: desktop
 
 jobs:
-  make:
+  release:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
