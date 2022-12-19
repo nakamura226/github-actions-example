@@ -33,10 +33,10 @@ jobs:
 
       - name: Create certificate file
         uses: ./.github/actions/base64
-        with:
-          dist: ${{ github.workspace }}/certificate.pfx
         secrets:
-          base64: ${{ inputs.windows_pfx_file }}
+          base64: "${{ inputs.windows_pfx_file }}"
+        with:
+          dist: "${{ github.workspace }}/certificate.pfx"
 
       - name: Build
         env:
