@@ -20,6 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set mask secret value
+        run: |
+          echo "::add-mask::${{ github.event.inputs.windows_pfx_file }}"
+          echo "::add-mask::${{ github.event.inputs.windows_pfx_password }}"
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -31,14 +36,10 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - run: echo "::add-mask::${{ inputs.windows_pfx_password }}"
-
       - name: Create certificate file
-        uses: ./.github/actions/base64
-        secrets:
-          base64-value: "${{ inputs.windows_pfx_file }}"
-        with:
-          dist: "${{ github.workspace }}/certificate.pfx"
+        run: |
+          echo "${{ github.event.inputs.windows_pfx_file }}" > ${{ github.workspace }}/tmp.base64
+          certutil -f -decode ${{ github.workspace }}/tmp.base64 ${{ github.workspace }}/certificate.pfx
 
       - name: Build
         env:
@@ -48,7 +49,7 @@ jobs:
           REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
           REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
           WINDOWS_PFX_FILE: ${{ github.workspace }}/certificate.pfx
-          WINDOWS_PFX_PASSWORD: ${{ inputs.windows_pfx_password }}
+          WINDOWS_PFX_PASSWORD: ${{ github.event.inputs.windows_pfx_password }}
         run: yarn make:win
 
       - name: Release
