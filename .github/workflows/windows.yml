@@ -30,9 +30,11 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Add Windows certificate
-        run: echo '$PFK_BASE64' | base64 --decode > ${{ github.workspace }}/certificate.pfx
+        run: |
+          echo "$WINDOWS_PFX_FILE_BASE64" > ${{ github.workspace }}/certificate.base64
+          certutil -f -decode ${{ github.workspace }}/certificate.base64 ${{ github.workspace }}/certificate.pfx
         env:
-          PFK_BASE64: ${{ inputs.windows_pfx_file }}
+          WINDOWS_PFX_FILE_BASE64: ${{ inputs.windows_pfx_file }}
 
       - name: Build
         env:
