@@ -16,7 +16,7 @@ const config: ForgeConfig = {
       certificatePassword: process.env.WINDOWS_PFX_PASSWORD,
     }),
     new MakerWix({}),
-    new MakerZIP({}, ['win32']),
+    new MakerZIP({}, ['darwin']),
   ],
   plugins: [
     new WebpackPlugin({
