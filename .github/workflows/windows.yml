@@ -29,7 +29,6 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - run: echo "::add-mask::${{ inputs.windows_pfx_file }}"
       - run: echo "::add-mask::${{ inputs.windows_pfx_password }}"
 
       - name: Create certificate file
