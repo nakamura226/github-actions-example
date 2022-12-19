@@ -5,12 +5,14 @@ import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 
 import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
+import package from './package.json';
 
 const config: ForgeConfig = {
   packagerConfig: {},
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
+      exe: `${package.productName}-${package.version}.exe`,
       certificateFile: process.env.WINDOWS_PFX_FILE,
       certificatePassword: process.env.WINDOWS_PFX_PASSWORD,
     }),
