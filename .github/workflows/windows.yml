@@ -34,17 +34,17 @@ jobs:
       - name: Set inputs mask
         run: |
           npm install -g node-jq --ignore-scripts
-          INPUT_FILE=$(jq -r '.inputs.windows_pfx_file' $GITHUB_EVENT_PATH)
-          INPUT_PASS=$(jq -r '.inputs.windows_pfx_password' $GITHUB_EVENT_PATH)
-          echo ::add-mask::$INPUT_FILE
-          echo ::add-mask::$INPUT_PASS
-          echo STR="$INPUT_FILE" >> $GITHUB_ENV
-          echo PASS="$INPUT_PASS" >> $GITHUB_ENV
+          INPUT_WINDOWS_PFX_BASE64=$(jq -r '.inputs.windows_pfx_file' $GITHUB_EVENT_PATH)
+          INPUT_WINDOWS_PFX_PASSWORD=$(jq -r '.inputs.windows_pfx_password' $GITHUB_EVENT_PATH)
+          echo ::add-mask::$INPUT_WINDOWS_PFX_BASE64
+          echo ::add-mask::$INPUT_WINDOWS_PFX_PASSWORD
+          echo WINDOWS_PFX_BASE64="$INPUT_WINDOWS_PFX_BASE64" >> $GITHUB_ENV
+          echo WINDOWS_PFX_PASSWORD="$INPUT_WINDOWS_PFX_PASSWORD" >> $GITHUB_ENV
         shell: bash
 
       - name: Create certificate file
         run: |
-          echo "${{ env.STR }}" > ${{ github.workspace }}/tmp.base64
+          echo "${{ env.WINDOWS_PFX_BASE64 }}" > ${{ github.workspace }}/tmp.base64
           certutil -f -decode ${{ github.workspace }}/tmp.base64 ${{ github.workspace }}/certificate.pfx
 
       - name: Build
@@ -55,7 +55,7 @@ jobs:
           REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
           REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
           WINDOWS_PFX_FILE: ${{ github.workspace }}/certificate.pfx
-          WINDOWS_PFX_PASSWORD: ${{ env.PASS }}
+          WINDOWS_PFX_PASSWORD: ${{ env.WINDOWS_PFX_PASSWORD }}
         run: yarn make:win
 
       - name: Release
