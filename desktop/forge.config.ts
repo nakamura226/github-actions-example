@@ -11,7 +11,7 @@ const config: ForgeConfig = {
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
-      exe: `${process.env.npm_package_productName}-${process.env.npm_package_version}.exe`,
+      // exe: `${process.env.npm_package_productName}-${process.env.npm_package_version}.exe`,
       certificateFile: process.env.WINDOWS_PFX_FILE,
       certificatePassword: process.env.WINDOWS_PFX_PASSWORD,
     }),
