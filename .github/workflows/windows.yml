@@ -33,9 +33,11 @@ jobs:
       - run: echo "::add-mask::${{ inputs.windows_pfx_password }}"
 
       - name: Create certificate file
-        run: |
-          echo "${{ inputs.windows_pfx_file }}" > ${{ github.workspace }}/certificate.base64
-          certutil -f -decode ${{ github.workspace }}/certificate.base64 ${{ github.workspace }}/certificate.pfx
+      - uses: ./.github/actions/base64
+        with:
+          dist: ${{ github.workspace }}/certificate.pfx
+        secrets:
+          base64: ${{ inputs.windows_pfx_file }}
 
       - name: Build
         env:
