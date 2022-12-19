@@ -4,9 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       windows_pfx_file:
+        description: コード証明書 (Base64エンコードした文字列)
         required: true
         type: string
       windows_pfx_password:
+        description: コード証明書のパスワード
         required: true
         type: string
 
