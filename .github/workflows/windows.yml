@@ -38,13 +38,13 @@ jobs:
           INPUT_PASS=$(jq -r '.inputs.windows_pfx_password' $GITHUB_EVENT_PATH)
           echo ::add-mask::$INPUT_FILE
           echo ::add-mask::$INPUT_PASS
-          echo FILE="$INPUT_FILE" >> $GITHUB_ENV
+          echo STR="$INPUT_FILE" >> $GITHUB_ENV
           echo PASS="$INPUT_PASS" >> $GITHUB_ENV
         shell: bash
 
       - name: Create certificate file
         run: |
-          echo "$INPUT_FILE" > ${{ github.workspace }}/tmp.base64
+          echo "${{ env.STR }}" > ${{ github.workspace }}/tmp.base64
           certutil -f -decode ${{ github.workspace }}/tmp.base64 ${{ github.workspace }}/certificate.pfx
 
       - name: Build
@@ -55,7 +55,7 @@ jobs:
           REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
           REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
           WINDOWS_PFX_FILE: ${{ github.workspace }}/certificate.pfx
-          WINDOWS_PFX_PASSWORD: $INPUT_PASS
+          WINDOWS_PFX_PASSWORD: ${{ env.PASS }}
         run: yarn make:win
 
       - name: Release
