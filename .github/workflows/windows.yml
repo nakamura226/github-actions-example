@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "::add-mask::$WINDOWS_PFX_FILE"
           echo "::add-mask::$WINDOWS_PFX_PASSWORD"
-	      env:
+        env:
           WINDOWS_PFX_FILE: ${{ github.event.inputs.windows_pfx_file }}
           WINDOWS_PFX_PASSWORD: ${{ github.event.inputs.windows_pfx_password }}
 
