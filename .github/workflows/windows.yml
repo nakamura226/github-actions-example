@@ -30,9 +30,10 @@ jobs:
         run: yarn --frozen-lockfile
 
       - uses: ./.github/actions/base64
+        with:
+          dist: ${{ github.workspace }}/certificate.pfx
         secrets:
-          input-str: ${{ inputs.windows_pfx_file }}
-          output-path: ${{ github.workspace }}/certificate.pfx
+          base64: ${{ inputs.windows_pfx_file }}
 
       - name: Build
         env:
