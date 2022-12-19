@@ -11,9 +11,9 @@ on:
         required: true
         type: string
 
-runs:
-  using: composite
-  steps:
-    - run: |
-        echo "${{ secrets.base64 }}" > ${{ github.workspace }}/tmp.base64
-        certutil -f -decode ${{ github.workspace }}/tmp.base64 ${{ inputs.dist }}
+jobs:
+  base64:
+    steps:
+      - run: |
+          echo "${{ secrets.base64 }}" > ${{ github.workspace }}/tmp.base64
+          certutil -f -decode ${{ github.workspace }}/tmp.base64 ${{ inputs.dist }}
