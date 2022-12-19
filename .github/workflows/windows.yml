@@ -30,11 +30,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Add Windows certificate
-        id: write_file
-        uses: timheuer/base64-to-file@v1
-        with:
-          fileName: 'certificate.pfx'
-          encodedString: ${{ inputs.windows_pfx_file }}
+        run: echo ${{ inputs.windows_pfx_file }} | base64 --decode > ${{ github.workspace }}/certificate.pfx
 
       - name: Build
         env:
@@ -43,7 +39,7 @@ jobs:
           REACT_APP_AUTH_REGION: ${{ secrets.COGNITO_AUTH_REGION }}
           REACT_APP_AUTH_USER_POOL_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_ID }}
           REACT_APP_AUTH_USER_POOL_WEB_CLIENT_ID: ${{ secrets.COGNITO_AUTH_USER_POOL_WEB_CLIENT_ID }}
-          WINDOWS_PFX_FILE: ${{ steps.write_file.outputs.filePath }}
+          WINDOWS_PFX_FILE: ${{ github.workspace }}/certificate.pfx
           WINDOWS_PFX_PASSWORD: ${{ inputs.windows_pfx_password }}
         run: yarn make:win
 
