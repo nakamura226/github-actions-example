@@ -25,10 +25,7 @@
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
-  "author": {
-    "name": "underground",
-    "email": "nacanori@gmail.com"
-  },
+  "author": "© 2022 Nikon Corporation",
   "license": "MIT",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.4",
