@@ -5,8 +5,10 @@ on:
     inputs:
       windows_pfx_file:
         required: true
+        type: string
       windows_pfx_password:
         required: true
+        type: string
 
 defaults:
   run:
@@ -34,7 +36,7 @@ jobs:
       - name: Create certificate file
         uses: ./.github/actions/base64
         secrets:
-          base64: "${{ inputs.windows_pfx_file }}"
+          base64-value: "${{ inputs.windows_pfx_file }}"
         with:
           dist: "${{ github.workspace }}/certificate.pfx"
 
