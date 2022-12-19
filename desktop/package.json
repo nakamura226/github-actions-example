@@ -1,7 +1,7 @@
 {
   "name": "example-desktop",
   "productName": "Example",
-  "version": "2.7.22",
+  "version": "2.7.23",
   "description": "My Electron application description",
   "private": true,
   "main": ".webpack/main",
