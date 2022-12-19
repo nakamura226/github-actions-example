@@ -29,13 +29,13 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
+      - run: echo "::add-mask::${{ inputs.windows_pfx_file }}"
+      - run: echo "::add-mask::${{ inputs.windows_pfx_password }}"
+
       - name: Create certificate file
         run: |
-          echo "::add-mask::$ENCRYPTED_VALUE"
-          echo "$ENCRYPTED_VALUE" > ${{ github.workspace }}/certificate.base64
+          echo "${{ inputs.windows_pfx_file }}" > ${{ github.workspace }}/certificate.base64
           certutil -f -decode ${{ github.workspace }}/certificate.base64 ${{ github.workspace }}/certificate.pfx
-        env:
-          ENCRYPTED_VALUE: ${{ inputs.windows_pfx_file }}
 
       - name: Build
         env:
