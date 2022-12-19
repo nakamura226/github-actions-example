@@ -40,6 +40,7 @@ jobs:
           echo ::add-mask::$INPUT_PASS
           echo FILE="$INPUT_FILE" >> $GITHUB_ENV
           echo PASS="$INPUT_PASS" >> $GITHUB_ENV
+        shell: bash
 
       - name: Create certificate file
         run: |
