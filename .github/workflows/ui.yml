@@ -6,6 +6,7 @@ on:
       - '**'
     paths:
       - 'ui/**'
+      - 'desktop/**'
       - '*'
 
 jobs:
@@ -16,5 +17,9 @@ jobs:
       run:
         working-directory: desktop
     steps:
-      - name: Echo
+      - name: Desktop Echo
+        run: echo "Changed desktop"
+        if: steps.filter.outputs.desktop == 'true'
+      - name: UI Echo
         run: echo "Changed ui"
+        if: steps.filter.outputs.ui == 'true'
